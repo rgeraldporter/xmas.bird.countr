@@ -4,12 +4,14 @@
 \alias{DrawBirdSpeciesBarplot}
 \title{Draws a Barplot of a Bird Species}
 \usage{
-DrawBirdSpeciesBarplot(bird.species, bird.name = "")
+DrawBirdSpeciesBarplot(bird.species, bird.name = "", generate.svg = F)
 }
 \arguments{
 \item{bird.species}{A bird species object}
 
 \item{bird.name}{A name to put on the graph}
+
+\item{generate.svg}{Generates an SVG image}
 }
 \description{
 \code{DrawBirdSpeciesBarplot} will create a barplot graph of a bird species.

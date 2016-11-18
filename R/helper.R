@@ -20,8 +20,21 @@ ImportCbcCsv <- function(csv.file) {
 #' @return a \code{bird.species} object
 #' @export
 SelectSpecies <- function(cbc.count, species.name) {
-  bird.species <- cbc.count[cbc.count$Species == species.name, ][ ,-1]
+  bird.species <- cbc.count[cbc.count$Species == species.name, ]
   return(bird.species)
+}
+
+#' Generates Barplot SVGs for All Taxons in a Count
+#'
+#' \code{GenerateAllSvgs} will create SVGs for all taxons.
+#'
+#' @param \code{cbc.count} The CBC count vector
+#' @export
+GenerateAllSvgs <- function(cbc.count) {
+  for(i in 1:nrow(cbc.count)) {
+    bird.row <- cbc.count[i,]
+    DrawBirdSpeciesBarplot(bird.row, generate.svg = T)
+  }
 }
 
 #' Draws a Barplot of a Bird Species
@@ -30,17 +43,28 @@ SelectSpecies <- function(cbc.count, species.name) {
 #'
 #' @param bird.species A bird species object
 #' @param bird.name A name to put on the graph
+#' @param generate.svg Generates an SVG image
 #' @export
 DrawBirdSpeciesBarplot <- function(bird.species,
-                                   bird.name = "") {
-  bird.data <- as.matrix(bird.species)
+                                   bird.name = "",
+                                   generate.svg = F) {
+  bird.data <- as.matrix(bird.species[ ,-1])
+
+  if (bird.name == "")
+    bird.name = bird.species$Species
+
+  if (generate.svg)
+    svg(paste0("./svgs/ONHA/", gsub("[^[:alnum:] ]", "", bird.name), ".svg"), width = 12, height = 8)
 
   barplot(bird.data,
           main      = bird.name,
-          sub       = "CBC Data",
+          sub       = "CBC Data - Hamilton, ON",
           xlab      = "Years",
           ylab      = "Count",
           col       = "blue",
           cex.names = 0.675,
           las       = 2)
+
+  if (generate.svg)
+    dev.off()
 }
