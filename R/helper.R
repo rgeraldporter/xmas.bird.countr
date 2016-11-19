@@ -64,6 +64,16 @@ MakeSvgDirectory <- function(sx) {
   dir.create(file.path(cwd, svg.dir), showWarnings = FALSE)
 }
 
+#' Removes the 'X' prefix from column names in data frames that are years
+#'
+#' \code{RemoveXHeaders} will remove the prefix 'X' from a data frame's headers
+#'
+#' @param df A data frame
+RemoveXHeaders <- function(df) {
+  names(df)[-1] <- substring(names(df)[-1], 2)
+  return(df)
+}
+
 #' Draws a Barplot of a Bird Species
 #'
 #' \code{DrawBirdSpeciesBarplot} will create a barplot graph of a bird species.
@@ -78,7 +88,9 @@ DrawBirdSpeciesBarplot <- function(bird,
                                    generate.svg = F,
                                    cbc.code = "_CBC",
                                    cbc.name = "") {
+  bird$count <- RemoveXHeaders(bird$count)
   bird.data <- as.matrix(bird$count[ ,-1])
+  # remove R's 'X' headers
 
   if (main.title == "")
     main.title = bird$name
