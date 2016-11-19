@@ -4,10 +4,10 @@
 \alias{GenerateAllSvgs}
 \title{Generates Barplot SVGs for All Taxons in a Count}
 \usage{
-GenerateAllSvgs(cbc.count)
+GenerateAllSvgs(cbc)
 }
 \arguments{
-\item{\code{cbc.count}}{The CBC count vector}
+\item{\code{cbc}}{The CBC count vector}
 }
 \description{
 \code{GenerateAllSvgs} will create SVGs for all taxons.

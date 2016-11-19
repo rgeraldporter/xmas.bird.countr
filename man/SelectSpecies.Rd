@@ -4,15 +4,15 @@
 \alias{SelectSpecies}
 \title{Select a Bird Species}
 \usage{
-SelectSpecies(cbc.count, species.name)
+SelectSpecies(cbc, species.name)
 }
 \arguments{
-\item{cbc.count}{A \code{cbc.count} object}
+\item{cbc}{A \code{cbc} list object}
 
-\item{species.name}{A bird species name string}
+\item{species.name}{A bird species or taxon name string}
 }
 \value{
-a \code{bird.species} object
+a \code{bird} list object
 }
 \description{
 \code{SelectSpecies} takes a \code{cbc.count} object and a \code{species.name}

@@ -4,14 +4,17 @@
 \alias{DrawBirdSpeciesBarplot}
 \title{Draws a Barplot of a Bird Species}
 \usage{
-DrawBirdSpeciesBarplot(bird.species, bird.name = "", generate.svg = F)
+DrawBirdSpeciesBarplot(bird, main.title = "", generate.svg = F,
+  cbc.code = "_CBC", cbc.name = "")
 }
 \arguments{
-\item{bird.species}{A bird species object}
+\item{bird}{A bird species list object}
 
-\item{bird.name}{A name to put on the graph}
+\item{main.title}{A title to put on the graph; if not provided, species name used}
 
 \item{generate.svg}{Generates an SVG image}
+
+\item{cbc.code}{The code for the CBC}
 }
 \description{
 \code{DrawBirdSpeciesBarplot} will create a barplot graph of a bird species.
