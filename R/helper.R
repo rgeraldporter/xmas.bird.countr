@@ -90,12 +90,13 @@ DrawBirdSpeciesBarplot <- function(bird,
                                    cbc.name = "") {
   bird$count <- RemoveXHeaders(bird$count)
   bird.data <- as.matrix(bird$count[ ,-1])
-  # remove R's 'X' headers
 
   if (main.title == "")
     main.title = bird$name
 
   MakeSvgDirectory(cbc.code)
+
+  blue <- rgb(0, 0, 1, alpha=0.65)
 
   if (generate.svg)
     svg(paste0("./svgs/", cbc.code ,"/", FileSafeName(bird$name), ".svg"), width = 12, height = 8)
@@ -105,8 +106,10 @@ DrawBirdSpeciesBarplot <- function(bird,
           sub       = paste("CBC Data", cbc.name),
           xlab      = "Years",
           ylab      = "Count",
-          col       = "blue",
+          col       = blue,
           cex.names = 0.675,
+          border    = NA,
+          axes      = T,
           las       = 2)
 
   if (generate.svg)
