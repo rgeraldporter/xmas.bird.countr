@@ -49,8 +49,8 @@ GenerateAllSvgs <- function(cbc) {
 #' @param sx A string
 #' @return A string
 FileSafeName <- function(sx) {
-  result <- gsub("/", "_or_", sx)
-  result <- gsub("sp.", "sp", result)
+  result <- gsub("(\\/)", "_or_", sx)
+  result <- gsub("(sp\\.)$", "sp", result)
   return(result)
 }
 
