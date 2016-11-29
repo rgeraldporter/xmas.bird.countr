@@ -4,7 +4,7 @@
 \alias{RemoveXHeaders}
 \title{Removes the 'X' prefix from column names in data frames that are years}
 \usage{
-RemoveXHeaders(df)
+RemoveXHeaders(df, offset = -1)
 }
 \arguments{
 \item{df}{A data frame}

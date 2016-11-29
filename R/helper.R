@@ -49,9 +49,9 @@ GenerateAllSvgs <- function(cbc) {
 #' @param sx A string
 #' @return A string
 FileSafeName <- function(sx) {
-  result <- gsub("(\\/)", "_or_", sx)
-  result <- gsub("(sp\\.)$", "sp", result)
-  return(result)
+  result <- sub("(\\/)", "_or_", sx)
+  result <- sub("(sp\\.)$", "sp", result)
+  result
 }
 
 #' Makes a directory for SVGs of a CBC, if it does not already exist
@@ -69,8 +69,8 @@ MakeSvgDirectory <- function(sx) {
 #' \code{RemoveXHeaders} will remove the prefix 'X' from a data frame's headers
 #'
 #' @param df A data frame
-RemoveXHeaders <- function(df) {
-  names(df)[-1] <- substring(names(df)[-1], 2)
+RemoveXHeaders <- function(df, offset=-1) {
+  names(df)[offset] <- substring(names(df)[offset], 2)
   return(df)
 }
 
@@ -115,3 +115,61 @@ DrawBirdSpeciesBarplot <- function(bird,
   if (generate.svg)
     dev.off()
 }
+
+#' Draws a Barplot of a Bird Species
+#'
+#' \code{DrawBirdSpeciesBarplot} will create a barplot graph of a bird species.
+#'
+#' @param bird A bird species list object
+#' @param main.title A title to put on the graph; if not provided, species name used
+#' @param generate.svg Generates an SVG image
+#' @param cbc.code The code for the CBC
+#' @export
+CompareBirdSpeciesBarplot <- function(bird1, bird2,
+                                   main.title = "",
+                                   generate.svg = F,
+                                   cbc.code = "_CBC",
+                                   cbc.name = "") {
+  bird1$count <- RemoveXHeaders(bird1$count)
+  bird1.data <- as.matrix(bird1$count[ ,-1])
+
+  MakeSvgDirectory(cbc.code)
+
+  blue <- rgb(0, 0, 1, alpha=0.65)
+
+  barplot(bird1.data,
+          main      = main.title,
+          sub       = paste("CBC Data for", paste0("[", cbc.code, "]"), cbc.name),
+          xlab      = "Years",
+          ylab      = "Total Count",
+          col       = blue,
+          cex.names = 0.625,
+          border    = NA,
+          axes      = T,
+          las       = 2)
+}
+
+#' Plot a Google Charts Area Chart
+#'
+#' \code{PlotAreaChart} will create an area chart of a bird species.
+#'
+#' @param cbc The cbc dataframe
+#' @param taxons A collection of taxon names to include
+#' @param chart.width Width of the chart
+#' @export
+PlotAreaChart <- function(cbc,
+                          taxons=c("Canada Goose"),
+                          chart.width=NA) {
+  df <- data.frame(
+    year  = substring(colnames(cbc$data[,-1]), 2)
+  )
+
+  for(i in taxons) {
+    species <- SelectSpecies(cbc, i)
+    df[[i]] <- as.numeric(as.matrix(species$count[,-1]))
+  }
+
+  dfarea <- gvisAreaChart(df, options=list(width=chart.width, gvis.editor="Edit", legend='{"position":"top"}'))
+  plot(dfarea)
+}
+
