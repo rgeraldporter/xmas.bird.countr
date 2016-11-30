@@ -4,7 +4,8 @@
 \alias{PlotAreaChart}
 \title{Plot a Google Charts Area Chart}
 \usage{
-PlotAreaChart(cbc, taxons = c("Canada Goose"), chart.width = NA)
+PlotAreaChart(cbc, taxons = c("Canada Goose"), embed.file = F,
+  cbc.code = "_CBC", chart.width = NA)
 }
 \arguments{
 \item{cbc}{The cbc dataframe}
